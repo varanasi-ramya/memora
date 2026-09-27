@@ -25,22 +25,6 @@ Even within a single site, search is literal. It finds a chat when you type the 
 
 ---
 
-## Design constraints
-
-These are fixed and not negotiable. Any feature that violates them does not ship.
-
-| Constraint | Consequence |
-| --- | --- |
-| No API keys for users | Nothing calls a paid service, ever |
-| No server, cloud, or hosting | All data lives in one file on the user's machine |
-| No machine learning models | Peak memory under 350 MB, install under 5 MB |
-| No network calls after install | Works fully offline, forever |
-| No telemetry or analytics | The user's history is never observed by anyone |
-
-The no-model constraint is a deliberate architectural choice, not a limitation to be removed later. See [Why no models](#why-no-models).
-
----
-
 ## How it works
 
 Memora has five parts.
@@ -94,28 +78,6 @@ Unlabelled conversations are grouped into clusters, which surfaces topics the us
 ### 5. Interface
 
 A command palette opened with a keyboard shortcut, available from anywhere. Results show the matching passage in context, and a result opens the original conversation in the original application at the right place.
-
----
-
-## Why no models
-
-Neural embedding models cost roughly 130 MB, require a download on first run, complicate packaging inside a Manifest V3 extension, and add inference scheduling to the query path.
-
-They buy exactly one capability: tolerance of paraphrase. Everything else in this product is unaffected by their absence.
-
-Personal conversation history is the best possible case for lexical methods. It is a single archive, in one language, with a small repeated personal vocabulary. A term frequency model built from that archive is a better prior than a general-purpose model, because it knows which words that user actually uses.
-
-This choice also removes the single largest source of ongoing fragility. Nothing about this architecture breaks when a model, a runtime, or a hosting provider changes.
-
-### Known limitations
-
-These are the cases where lexical search is genuinely weaker, stated plainly rather than hidden.
-
-- Describing a conversation in words that never appear anywhere in it
-- Searching in one language for conversations written in another
-- Queries where the useful term is the outcome, not the topic, such as "the fix that finally worked"
-
-The third is partially mitigated by weighting assistant replies. The first two are the reason the neural tier exists as a later, optional addition rather than a core dependency.
 
 ---
 
@@ -179,12 +141,6 @@ memora/
 ## Status
 
 Early development. See [features.md](features.md) for the full feature specification, what is out of scope for v1, and the open design questions.
-
----
-
-## Contributing
-
-Issues and pull requests are welcome. The most valuable contributions are capture adapters for platforms not yet supported, and entries for the alias table, which directly improves search quality for technical vocabulary.
 
 ---
 
