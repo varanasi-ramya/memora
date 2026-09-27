@@ -1,22 +1,8 @@
 # Memora Features
 
-Full feature specification, scope boundaries, and open questions.
+Full feature specification for v1 and beyond.
 
 Related: [README.md](README.md)
-
----
-
-## Design constraints
-
-Fixed. Every feature below is built within these.
-
-| Constraint | Consequence |
-| --- | --- |
-| No API keys for users | No paid service is ever called |
-| No server, cloud, or hosting | All data in one file on the user's machine |
-| No machine learning models | Under 350 MB peak memory, under 5 MB install |
-| No network after install | Fully offline, permanently |
-| No telemetry | History is never observed by anyone |
 
 ---
 
@@ -106,26 +92,6 @@ Fixed. Every feature below is built within these.
 - [ ] Keyboard-first navigation throughout
 - [ ] Light and dark themes
 
-### Notable differences between sources
-
-Handled by adapters, listed here because they are the source of most capture bugs.
-
-| Source | Difference |
-| --- | --- |
-| ChatGPT | Message history is a branching tree, not a list. The visible thread is one path through it. |
-| Claude | Same branching, plus pagination on the conversation list is broken and must be worked around. A "simple" fetch mode silently returns empty tool results. |
-| Gemini | Requests use an undocumented batch RPC. Capture may be limited to the current conversation. |
-
-### Explicitly out of scope for v1
-
-- Prose answers to questions about history. Replaced by a structured evidence timeline, which is free and more trustworthy.
-- Neural or embedding search
-- Cloud sync, accounts, sharing, teams
-- Mobile application support
-- Any hosted API
-- Telemetry, analytics, crash reporting
-- A polished installer
-
 ---
 
 ## v2 and beyond
@@ -141,50 +107,9 @@ Handled by adapters, listed here because they are the source of most capture bug
 
 ---
 
-## Use cases
-
-- "Find that Python bug fix from last week"
-- "What was the SQL query we discussed?"
-- "Show all chats tagged #research"
-- "Find the conversation where we chose Postgres over Mongo"
-- "What was that error about the CORS header?"
-- "Show me everything about my placement preparation"
-- "Which chats did I have while working on the college project?"
-- "Find the conversation where I asked about useEffect cleanup"
-
----
-
 ## Success metrics
 
 - Time to find a conversation under 3 seconds
 - Works for 100 or more conversations with no noticeable slowdown
 - Zero privacy complaints
 - Capture failure is always visible to the user, never silent
-
----
-
-## Open questions
-
-- Which platforms first: ChatGPT only, or ChatGPT and Claude together?
-- When to backfill: on first run, on demand, or continuously in the background?
-- Search entry point: a floating button, a keyboard shortcut, or both?
-- Folder structure or search only, or a flat topic model with manual collections on top?
-- Should the local service start with the operating system, or on demand?
-- How much of the conversation list to fetch eagerly versus lazily on open?
-- Should assistant replies be searchable by default, or opt-in?
-
----
-
-## Resources
-
-- Chrome extension development: https://developer.chrome.com/docs/extensions/
-- Manifest V3 migration guide: https://developer.chrome.com/docs/extensions/develop/migrate
-- SQLite FTS5: https://sqlite.org/fts5.html
-- SQLite trigram tokenizer: https://sqlite.org/fts5.html#the_trigram_tokenizer
-- Porter2 stemmer: https://snowballstem.org/algorithms/english/stemmer.html
-- BM25: https://en.wikipedia.org/wiki/Okapi_BM25
-- Non-negative matrix factorisation: https://en.wikipedia.org/wiki/Non-negative_matrix_factorization
-- HDBSCAN: https://hdbscan.readthedocs.io/
-- Model Context Protocol: https://modelcontextprotocol.io/
-- OpenAI conversation endpoints, observed in browser network traffic
-- Claude conversation endpoints, observed in browser network traffic

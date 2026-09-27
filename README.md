@@ -140,7 +140,7 @@ memora/
 
 ## Status
 
-Early development. See [features.md](features.md) for the full feature specification, what is out of scope for v1, and the open design questions.
+Early development. See [features.md](features.md) for the full feature specification.
 
 ---
 
